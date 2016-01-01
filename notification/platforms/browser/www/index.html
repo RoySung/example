@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+        <title>Hello World</title>
+        <style type="text/css">
+            #content {
+                position: absolute;
+                width: 100%;
+                text-align: center;
+                top: 40%;
+            }
+        </style>
+    </head>
+    <script>
+        var id = 1, dialog;
+        schedule = function () {
+                alert();
+                cordova.plugins.notification.local.schedule({
+                    id: 1,
+                    text: 'Test Message 1',
+                    icon: 'http://3.bp.blogspot.com/-Qdsy-GpempY/UU_BN9LTqSI/AAAAAAAAAMA/LkwLW2yNBJ4/s1600/supersu.png',
+                    smallIcon: 'res://cordova',
+                    sound: null,
+                    data: { test: id }
+                });
+            };
+    </script>
+    <body>
+        <div id="content">
+            <button style="width:200px;height:50px;" onclick="schedule()">Single</button><br/>
+            <button style="width:200px;height:50px;">Single</button>
+        </div>
+        <script type="text/javascript" src="cordova.js"></script>
+    </body>
+</html>
