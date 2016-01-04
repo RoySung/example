@@ -7,12 +7,11 @@
 		<script type="text/javascript" src="js/internetdownload.js"></script>
 	</head>
 	<script type="text/javascript">
+		var json = '[{"Vehicle":"BMW","Date":"30 Jul 2013 09:24 AM","Location":"Hauz Khas","Speed":42},{"Vehicle":"Honda CBR","Date":"30 Jul 2013 12:00 AM","Location":"Military Road","Speed":0},{"Vehicle":"Supra","Date":"30 Jul 2013 07:53 AM","Location":"Sec-45","Speed":58},{"Vehicle":"Land Cruiser","Date":"30 Jul 2013 09:35 AM","Location":"DLF Phase I","Speed":83}]';
 		$(document).ready(function(){
 		    $('.download').click(function(){
-		        var json = '[{"Vehicle":"BMW","Date":"30 Jul 2013 09:24 AM","Location":"Hauz Khas","Speed":42},{"Vehicle":"Honda CBR","Date":"30 Jul 2013 12:00 AM","Location":"Military Road","Speed":0},{"Vehicle":"Supra","Date":"30 Jul 2013 07:53 AM","Location":"Sec-45","Speed":58},{"Vehicle":"Land Cruiser","Date":"30 Jul 2013 09:35 AM","Location":"DLF Phase I","Speed":83}]';
 		        JSONToCSVConvertor(json, true);
-		    });
-				
+		    });	
 		});
 		function inputFile(file) {
 			if( file.type.match(/text\/csv/) || file.type.match(/vnd\.ms-excel/) ){
@@ -28,6 +27,27 @@
 	        	console.log("This file does not seem to be a CSV.");
 	        }
 		}
+		function exportJson() {
+			var data = new Object();
+			data.tableName = "new01";
+			data.tableType = 0;
+			data.tableField = new Array();
+			for (var i = 0;i < 15 ; i++) {
+				for (var j = 0 ; j < 6 ; j++) {
+					data.tableField[i] = new Array();
+					data.tableField[i][j] = new Object();
+					data.tableField[i][j].class_name = "ClassName";
+					data.tableField[i][j].class_room = "Room";
+					data.tableField[i][j].isRemind = false;
+					data.tableField[i][j].remindTime = "";
+					data.tableField[i][j].cellColor	= "#FFFFFF";
+				}
+			}
+			console.log(data);
+			//console.log(data.tableField[1][1].class_name);
+			
+			$.post("/",json);
+		}
 	</script>
 	<body>
 		<div align="center">
@@ -38,6 +58,7 @@
 				<h4>CSV to JSON</h4>
 				<input type="file" name="file" accept=".csv" onchange="inputFile(this.files[0])">
 			</form>
+			<button onclick="exportJson()">Export JSON</button><br><br>
 		</div>
 	</body>
 </html>
