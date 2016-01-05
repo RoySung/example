@@ -27,36 +27,47 @@
 	        	console.log("This file does not seem to be a CSV.");
 	        }
 		}
-		function exportJson() {
+
+		function initJson () {
 			var data = new Object();
-			data.tableName = "new01";
-			data.tableType = 0;
+			data.tableName = "String(TableName)";
+			data.tableType = "String(day;night;both)";
 			data.tableField = new Array();
 			for (var i = 0;i < 15 ; i++) {
 				data.tableField[i] = new Array();
 				for (var j = 0 ; j < 6 ; j++) {
 					data.tableField[i][j] = new Object();
-					data.tableField[i][j].class_name = "ClassName";
-					data.tableField[i][j].class_room = "Room";
+					data.tableField[i][j].class_name = "String(ClassName)";
+					data.tableField[i][j].class_room = "String(ClassRoom)";
 					data.tableField[i][j].isRemind = false;
-					data.tableField[i][j].remindTime = "";
-					data.tableField[i][j].cellColor	= "#FFFFFF";
+					data.tableField[i][j].remindTime = "dateTime(dateTime)";
+					data.tableField[i][j].cellColor	= "Color(#FFFFFF)";
 				}
 			}
+			return data;
+		}
+		function exportJson() {
+			var data = initJson();
 			console.log(data);
-			
 		}
 	</script>
 	<body>
 		<div align="center">
-			<h3>Example about CSV</h3>
-			<br>
-			<button class="download">JSON to CSV  (Download CSV)</button><br><br>
-			<form name="csvForm" style="border: dotted;">
-				<h4>CSV to JSON</h4>
-				<input type="file" name="file" accept=".csv" onchange="inputFile(this.files[0])">
-			</form>
-			<button onclick="exportJson()">Export JSON</button><br><br>
+			<section style="border: solid; padding: 10px;">
+				<h3>Example about CSV</h3>
+				<button class="download">JSON to CSV  (Download CSV)</button><br><br>
+				<form name="csvForm">
+					<h3>CSV to JSON</h3>
+					<input type="file" name="file" accept=".csv" onchange="inputFile(this.files[0])">
+				</form>	
+			</section>
+			<hr>
+			<section style="border: solid; padding: 10px;">
+				<h3>Example Json</h3>
+				<p>ClassTable json object sample</p>
+				<button onclick="exportJson()">Export JSON</button>
+			</section>
+			
 		</div>
 	</body>
 </html>
