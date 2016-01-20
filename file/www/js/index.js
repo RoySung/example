@@ -4,57 +4,58 @@ document.addEventListener("deviceready", onDeviceReady, false);
 //
 function onDeviceReady() {
     alert('onready');
-    Filecontroller("read", "readme.txt");
+    Filecontroller("write", "readme.txt", "test");
+    Filecontroller("read", "readme.txt", null);
 }
 
-function Filecontroller(method, fileName) {
+function Filecontroller(method, fileName, data) {
     if (method == "write") {
         window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, writeFile, errorHandler);
     } else if (method == "read") {
         window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, readFile, errorHandler);
     }
-}
 
-function writeFile(fileSystem) {
-    fileSystem.root.getFile(fileName, {
-        create: true,
-        exclusive: false
-    }, function(fileEntry) {
-        fileEntry.createWriter(fileWriter, errorHandler);
-    }, errorHandler);
-}
-
-function readFile(fileSystem) {
-    fileSystem.root.getFile(fileName, {
-        create: true,
-        exclusive: false
-    }, function(fileEntry) {
-        fileEntry.file(function(file) {
-            var reader = new FileReader();
-            reader.onloadend = function(e) {
-                console.log(this.result);
-            };
-            reader.readAsText(file);
+    function writeFile(fileSystem) {
+        fileSystem.root.getFile(fileName, {
+            create: true,
+            exclusive: false
+        }, function(fileEntry) {
+            fileEntry.createWriter(fileWriter, errorHandler);
         }, errorHandler);
-    }, errorHandler);
-}
+    }
 
-function fileWriter(writer) {
-    writer.onwriteend = function(evt) {
-        console.log("contents of file now 'some sample text'");
-        writer.truncate(11);
+    function readFile(fileSystem) {
+        fileSystem.root.getFile(fileName, {
+            create: true,
+            exclusive: false
+        }, function(fileEntry) {
+            fileEntry.file(function(file) {
+                var reader = new FileReader();
+                reader.onloadend = function(e) {
+                    console.log(this.result);
+                };
+                reader.readAsText(file);
+            }, errorHandler);
+        }, errorHandler);
+    }
+
+    function fileWriter(writer) {
         writer.onwriteend = function(evt) {
-            console.log("contents of file now 'some sample'");
-            writer.seek(4);
-            writer.write(" different text");
-            writer.onwriteend = function(evt) {
-                console.log("contents of file now 'some different text'");
-            }
+            console.log("been Writen.");
+            // writer.truncate(11);
+            // writer.onwriteend = function(evt) {
+            //     console.log("contents of file now 'some sample'");
+            //     writer.seek(4);
+            //     writer.write(" different text");
+            //     writer.onwriteend = function(evt) {
+            //         console.log("contents of file now 'some different text'");
+            //     }
+            // };
         };
-    };
-    writer.write("some sample text");
-}
+        writer.write(data);
+    }
 
+}
 
 var errorHandler = function(fileName, e) {
     var msg = '';
