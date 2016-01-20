@@ -4,29 +4,38 @@ document.addEventListener("deviceready", onDeviceReady, false);
 //
 function onDeviceReady() {
     alert('onready');
-    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, getFile, errorHandler);
+    Filecontroller("read", "readme.txt");
 }
 
-function getFile(fileSystem) {
-    alert('getFile');
-    fileSystem.root.getFile("readme.txt", {
+function Filecontroller(method, fileName) {
+    if (method == "write") {
+        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, writeFile, errorHandler);
+    } else if (method == "read") {
+        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, readFile, errorHandler);
+    }
+}
+
+function writeFile(fileSystem) {
+    fileSystem.root.getFile(fileName, {
         create: true,
         exclusive: false
-    }, fileEntry, errorHandler);
+    }, function(fileEntry) {
+        fileEntry.createWriter(fileWriter, errorHandler);
+    }, errorHandler);
 }
 
-function fileEntry(fileEntry) {
-    fileReader(fileEntry);
-    fileEntry.createWriter(fileWriter, errorHandler);
-}
-
-function fileReader(fileEntry) {
-    fileEntry.file(function(file) {
-        var reader = new FileReader();
-        reader.onloadend = function(e) {
-            console.log(this.result);
-        };
-        reader.readAsText(file);
+function readFile(fileSystem) {
+    fileSystem.root.getFile(fileName, {
+        create: true,
+        exclusive: false
+    }, function(fileEntry) {
+        fileEntry.file(function(file) {
+            var reader = new FileReader();
+            reader.onloadend = function(e) {
+                console.log(this.result);
+            };
+            reader.readAsText(file);
+        }, errorHandler);
     }, errorHandler);
 }
 
