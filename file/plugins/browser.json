@@ -1,0 +1,24 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.example.file"
+        },
+        "cordova-plugin-file": {
+            "PACKAGE_NAME": "com.example.file"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.example.file"
+        },
+        "cordova-plugin-file-transfer": {
+            "PACKAGE_NAME": "com.example.file"
+        }
+    },
+    "dependent_plugins": {}
+}

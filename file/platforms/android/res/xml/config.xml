@@ -9,7 +9,15 @@
         <param name="android-package" value="org.apache.cordova.file.FileUtils" />
         <param name="onload" value="true" />
     </feature>
+    <feature name="Device">
+        <param name="android-package" value="org.apache.cordova.device.Device" />
+    </feature>
+    <feature name="FileTransfer">
+        <param name="android-package" value="org.apache.cordova.filetransfer.FileTransfer" />
+    </feature>
     <allow-intent href="market:*" />
+    <preference name="AndroidPersistentFileLocation" value="Internal" />
+    <preference name="AndroidPersistentFileLocation" value="Compatibility" />
     <preference name="AndroidExtraFilesystems" value="files,files-external,documents,sdcard,cache,cache-external,root" />
     <name>File</name>
     <description>

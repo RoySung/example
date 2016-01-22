@@ -12,6 +12,12 @@
         },
         "cordova-plugin-file": {
             "PACKAGE_NAME": "com.example.file"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.example.file"
+        },
+        "cordova-plugin-file-transfer": {
+            "PACKAGE_NAME": "com.example.file"
         }
     },
     "dependent_plugins": {}
